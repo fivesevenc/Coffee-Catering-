@@ -151,17 +151,6 @@ h3 { font-size: clamp(22px, 2.4vw, 34px); }
   height: 390px;
   box-shadow: 0 30px 70px rgba(0,0,0,.42);
 }
-.hero-stat {
-  position: absolute;
-  right: 0;
-  bottom: 22px;
-  width: 174px;
-  padding: 20px;
-  background: var(--white);
-  color: var(--ink);
-}
-.hero-stat span { display: block; font-size: 36px; font-weight: 850; line-height: 1; }
-.hero-stat small { color: #555; }
 .scroll-indicator {
   position: absolute;
   left: 50%;
@@ -563,7 +552,6 @@ h3 { font-size: clamp(22px, 2.4vw, 34px); }
   h2 { font-size: clamp(34px, 11vw, 52px); }
   .hero-media { min-height: 470px; }
   .hero-image-float { width: 58%; height: 260px; }
-  .hero-stat { width: 145px; padding: 16px; }
   .event-grid, .gallery-grid, .why-grid, .request-form { grid-template-columns: 1fr; }
   .event-grid { grid-auto-rows: 330px; }
   .why-grid p { min-height: 150px; }

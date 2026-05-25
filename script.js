@@ -2,16 +2,16 @@ const images = {
   hero: "assets/images/coffee-catering-setup.jpg",
   heroDetail: "assets/images/latte-art-closeup.jpg",
   baristaServe: "assets/images/barista-service-cologne.jpg",
-  latte: "assets/images/coffee-cup-plants.jpg",
+  latte: "assets/images/espresso-machine.jpg",
   baristaPour: "assets/images/barista-pouring-cafe-chocolate.jpg",
-  machine: "assets/images/espresso-machine.jpg",
-  corporate: "assets/images/corporate-coffee-event.jpg",
-  tradefair: "assets/images/coffee-catering-van.jpg",
-  cupHand: "assets/images/cafe-chocolate-cup.jpg",
-  cafeFront: "assets/images/coffee-bike-cafe-front.jpg",
-  rhine: "assets/images/coffee-bike-rhine.jpg",
-  detailPlant: "assets/images/coffee-cup-plants.jpg",
-  wedding: "assets/images/barista-coffee-machine.jpg",
+  machine: "assets/images/corporate-coffee-event.jpg",
+  corporate: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+  tradefair: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
+  weddingEvent: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+  birthday: "https://images.pexels.com/photos/27176119/pexels-photo-27176119.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  summerParty: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1200&q=80",
+  privateParty: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80",
+  wedding: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80",
   gallery1: "assets/images/mobile-coffee-bar-cologne.jpg",
   gallery2: "assets/images/latte-art-closeup.jpg",
   gallery3: "assets/images/barista-pouring-cafe-chocolate.jpg",
@@ -77,11 +77,11 @@ const form = document.querySelector("[data-form]");
 const note = document.querySelector("[data-form-note]");
 
 form.addEventListener("submit", (event) => {
-  event.preventDefault();
   if (!form.checkValidity()) {
+    event.preventDefault();
     form.reportValidity();
     return;
   }
-  note.textContent = "Danke! Die Formularstruktur ist vorbereitet. Sobald ein Backend angebunden ist, wird die Anfrage versendet.";
+  note.textContent = "Danke! Deine Anfrage wird an info@cafechocolate.de vorbereitet.";
   note.classList.add("success");
 });
