@@ -213,10 +213,8 @@
           <p>Trage dein Wunschdatum direkt im Formular ein. Wir prüfen die Verfügbarkeit persönlich und melden uns mit den nächsten Schritten.</p>
         </div>
         <div class="booking-grid">
-          <form class="request-form reveal" action="https://formsubmit.co/ajax/info@cafechocolate.de" method="post" data-form data-recipient="info@cafechocolate.de">
+          <form class="request-form reveal" action="/api/send-mail" method="post" data-form data-recipient="info@cafechocolate.de">
             <input type="hidden" name="Empfänger" value="info@cafechocolate.de">
-            <input type="hidden" name="_subject" value="Neue Coffee Catering Anfrage">
-            <input type="hidden" name="_template" value="table">
             <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="availability-note full">
               <span>Verfügbarkeit</span>
@@ -320,7 +318,7 @@
         <div class="modal-mark" aria-hidden="true">✓</div>
         <p class="eyebrow">Anfrage erhalten</p>
         <h2 id="modal-title">Vielen Dank.</h2>
-        <p>Deine Anfrage ist vorbereitet und wird an Café Chocolate gesendet.</p>
+        <p>Deine Anfrage wurde an Café Chocolate übermittelt.</p>
         <p>Wir prüfen dein Eventdatum persönlich und melden uns zeitnah mit den nächsten Schritten.</p>
       </div>
     </div>

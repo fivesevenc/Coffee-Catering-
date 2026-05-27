@@ -119,6 +119,10 @@ form.addEventListener("submit", async (event) => {
   button.textContent = "Wird gesendet...";
 
   try {
+    if (window.location.protocol === "file:") {
+      throw new Error("LOCAL_FILE");
+    }
+
     const response = await fetch(form.action, {
       method: "POST",
       headers: {
@@ -128,12 +132,17 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify(Object.fromEntries(data))
     });
 
-    if (!response.ok) throw new Error("Formular konnte nicht gesendet werden.");
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Formular konnte nicht gesendet werden.");
+    }
 
     openModal();
     form.reset();
   } catch (error) {
-    note.textContent = "Die Anfrage konnte gerade nicht gesendet werden. Bitte schreibe direkt an info@cafechocolate.de.";
+    note.textContent = error.message === "LOCAL_FILE"
+      ? "Der E-Mail-Versand funktioniert erst auf Vercel, nicht aus der lokalen Datei. Bitte deploye die Seite inklusive API-Ordner."
+      : "Die Anfrage konnte gerade nicht gesendet werden. Bitte schreibe direkt an info@cafechocolate.de.";
     note.classList.add("error");
   } finally {
     button.disabled = false;
