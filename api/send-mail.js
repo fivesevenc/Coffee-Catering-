@@ -19,6 +19,12 @@ function isValidEmail(email) {
 }
 
 module.exports = async function handler(req, res) {
+  res.setHeader("Cache-Control", "no-store");
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
@@ -26,7 +32,7 @@ module.exports = async function handler(req, res) {
   if (!process.env.RESEND_API_KEY) {
     return res.status(500).json({
       success: false,
-      message: "RESEND_API_KEY ist nicht gesetzt."
+      message: "RESEND_API_KEY ist in Vercel nicht gesetzt."
     });
   }
 
@@ -119,11 +125,16 @@ module.exports = async function handler(req, res) {
   });
 
   if (!response.ok) {
-    const error = await response.text();
+    let details = await response.text();
+    try {
+      const parsed = JSON.parse(details);
+      details = parsed.message || parsed.error || details;
+    } catch {}
+
     return res.status(502).json({
       success: false,
-      message: "Die E-Mail konnte nicht versendet werden.",
-      details: error
+      message: "Resend konnte die E-Mail nicht versenden.",
+      details
     });
   }
 
