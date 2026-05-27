@@ -81,6 +81,25 @@ document.querySelectorAll('input[type="date"]').forEach((input) => {
 
 const form = document.querySelector("[data-form]");
 const note = document.querySelector("[data-form-note]");
+const modal = document.querySelector("[data-modal]");
+const modalClose = document.querySelector("[data-modal-close]");
+
+const openModal = () => {
+  modal.hidden = false;
+  modalClose.focus();
+};
+
+const closeModal = () => {
+  modal.hidden = true;
+};
+
+modalClose.addEventListener("click", closeModal);
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) closeModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !modal.hidden) closeModal();
+});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -112,7 +131,7 @@ form.addEventListener("submit", (event) => {
   const subject = `Anfrage Coffee Catering${data.get("date") ? ` - ${data.get("date")}` : ""}`;
   const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-  note.textContent = "Danke! Dein E-Mail-Programm wird mit der vorbereiteten Anfrage geöffnet.";
-  note.classList.add("success");
+  note.textContent = "";
+  openModal();
   window.location.href = mailto;
 });
