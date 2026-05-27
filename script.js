@@ -101,7 +101,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !modal.hidden) closeModal();
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -109,29 +109,34 @@ form.addEventListener("submit", (event) => {
   }
 
   const data = new FormData(form);
-  const recipient = form.dataset.recipient || "info@cafechocolate.de";
-  const rows = [
-    ["Name", data.get("name")],
-    ["Unternehmen", data.get("company")],
-    ["E-Mail", data.get("email")],
-    ["Telefonnummer", data.get("phone")],
-    ["Eventdatum", data.get("date")],
-    ["Gästeanzahl", data.get("guests")],
-    ["Eventart", data.get("event_type")],
-    ["Location vorhanden", data.get("location_known")],
-    ["Ort des Events", data.get("event_location")],
-    ["Bevorzugte Kontaktart", data.get("contact_preference")],
-    ["Nachricht", data.get("message")],
-    ["Datenschutz-Einwilligung", data.get("privacy_consent") ? "Ja" : "Nein"]
-  ];
-  const body = rows
-    .filter(([, value]) => value)
-    .map(([label, value]) => `${label}: ${value}`)
-    .join("\n");
-  const subject = `Anfrage Coffee Catering${data.get("date") ? ` - ${data.get("date")}` : ""}`;
-  const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const button = form.querySelector('button[type="submit"]');
+
+  if (data.get("_honey")) return;
 
   note.textContent = "";
-  openModal();
-  window.location.href = mailto;
+  note.classList.remove("success", "error");
+  button.disabled = true;
+  button.textContent = "Wird gesendet...";
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(Object.fromEntries(data))
+    });
+
+    if (!response.ok) throw new Error("Formular konnte nicht gesendet werden.");
+
+    openModal();
+    form.reset();
+  } catch (error) {
+    note.textContent = "Die Anfrage konnte gerade nicht gesendet werden. Bitte schreibe direkt an info@cafechocolate.de.";
+    note.classList.add("error");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Unverbindlich anfragen";
+  }
 });
