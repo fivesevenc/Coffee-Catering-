@@ -1,0 +1,23 @@
+{
+  "name": "coffee-catering",
+  "version": "1.0.0",
+  "description": "Coffee Catering by Café Chocolate - Mobile Kaffeebar für Köln & NRW",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fivesevenc/Coffee-Catering-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fivesevenc/Coffee-Catering-/issues"
+  },
+  "homepage": "https://github.com/fivesevenc/Coffee-Catering-#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
