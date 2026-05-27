@@ -73,15 +73,46 @@ document.querySelectorAll("[data-accordion] details").forEach((detail) => {
   });
 });
 
+document.querySelectorAll('input[type="date"]').forEach((input) => {
+  input.addEventListener("click", () => {
+    if (typeof input.showPicker === "function") input.showPicker();
+  });
+});
+
 const form = document.querySelector("[data-form]");
 const note = document.querySelector("[data-form-note]");
 
 form.addEventListener("submit", (event) => {
+  event.preventDefault();
   if (!form.checkValidity()) {
-    event.preventDefault();
     form.reportValidity();
     return;
   }
-  note.textContent = "Danke! Deine Anfrage wird an info@cafechocolate.de vorbereitet.";
+
+  const data = new FormData(form);
+  const recipient = form.dataset.recipient || "info@cafechocolate.de";
+  const rows = [
+    ["Name", data.get("name")],
+    ["Unternehmen", data.get("company")],
+    ["E-Mail", data.get("email")],
+    ["Telefonnummer", data.get("phone")],
+    ["Eventdatum", data.get("date")],
+    ["Gästeanzahl", data.get("guests")],
+    ["Eventart", data.get("event_type")],
+    ["Location vorhanden", data.get("location_known")],
+    ["Ort des Events", data.get("event_location")],
+    ["Bevorzugte Kontaktart", data.get("contact_preference")],
+    ["Nachricht", data.get("message")],
+    ["Datenschutz-Einwilligung", data.get("privacy_consent") ? "Ja" : "Nein"]
+  ];
+  const body = rows
+    .filter(([, value]) => value)
+    .map(([label, value]) => `${label}: ${value}`)
+    .join("\n");
+  const subject = `Anfrage Coffee Catering${data.get("date") ? ` - ${data.get("date")}` : ""}`;
+  const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  note.textContent = "Danke! Dein E-Mail-Programm wird mit der vorbereiteten Anfrage geöffnet.";
   note.classList.add("success");
+  window.location.href = mailto;
 });

@@ -211,7 +211,7 @@
           <p>Trage dein Wunschdatum direkt im Formular ein. Wir prüfen die Verfügbarkeit persönlich und melden uns mit den nächsten Schritten.</p>
         </div>
         <div class="booking-grid">
-          <form class="request-form reveal" action="mailto:info@cafechocolate.de" method="post" enctype="text/plain" data-form data-recipient="info@cafechocolate.de">
+          <form class="request-form reveal" action="#" method="post" data-form data-recipient="info@cafechocolate.de">
             <input type="hidden" name="Empfänger" value="info@cafechocolate.de">
             <div class="availability-note full">
               <span>Verfügbarkeit</span>
@@ -228,6 +228,10 @@
             <label>Ort des Events<input name="event_location" autocomplete="address-level2"></label>
             <label>Bevorzugte Kontaktart<select name="contact_preference"><option>WhatsApp</option><option>Telefon</option><option>E-Mail</option></select></label>
             <label class="full">Nachricht<textarea name="message" rows="5" placeholder="Was sollten wir über euer Event wissen?"></textarea></label>
+            <label class="consent-label full">
+              <input type="checkbox" name="privacy_consent" value="Ja" required>
+              <span>Ich habe die <a href="https://cafechocolate.de/datenschutzerklaerung/" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin damit einverstanden, dass meine Angaben zur Kontaktaufnahme und Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.</span>
+            </label>
             <button class="btn full" type="submit">Unverbindlich anfragen</button>
             <p class="form-note" data-form-note>Die Anfrage ist unverbindlich. Wir melden uns persönlich mit den nächsten Schritten.</p>
           </form>
